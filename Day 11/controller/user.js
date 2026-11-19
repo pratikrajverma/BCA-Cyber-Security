@@ -2,6 +2,8 @@ import User from "../model/userModel.js"
 
 import bcrypt from 'bcrypt'
 
+import jwt from 'jsonwebtoken'
+
 async function signup(req,res){
     try {
         
@@ -77,10 +79,24 @@ async function login(req,res){
 
        if(await  bcrypt.compare( password , user.password )){
 
+
+
+        let token = await jwt.sign(
+            {
+                userId : user._id,
+                role: user.role
+            },
+            'jwtKey',
+            {
+                expiresIn : '1hr'
+            }
+        )
+
         res.status(200).json({
             message:'user login sucessfully...',
             user,
-            success:true
+            success:true,
+            token
         })
 
 
