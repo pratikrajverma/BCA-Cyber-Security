@@ -1,5 +1,9 @@
 import User from "../model/userModel.js"
 
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 import bcrypt from 'bcrypt'
 
 import jwt from 'jsonwebtoken'
@@ -86,7 +90,7 @@ async function login(req,res){
                 userId : user._id,
                 role: user.role
             },
-            'jwtKey',
+            process.env.secretKey,
             {
                 expiresIn : '1hr'
             }

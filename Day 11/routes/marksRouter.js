@@ -8,6 +8,6 @@ const marksrouter = express.Router()
 marksrouter.get('/marks', auth , isStudent,  showMarks)
 
 
-marksrouter.post('/marks' , createMarks)
+marksrouter.post('/marks' ,auth, isTeacher,  createMarks)
 
 export default marksrouter
